@@ -1,3 +1,3 @@
 # chalk-luau
 
-A template for creating Luau packages.
+A terminal string styling library for Luau.
