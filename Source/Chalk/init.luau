@@ -1,5 +1,13 @@
 --!nocheck
--- Forked from https://github.com/Roblox/chalk-lua.
+--[[
+
+Chalk
+
+A terminal string styling library for Luau, forked from
+https://github.com/Roblox/chalk-lua. Provides ANSI color codes for text
+modifiers, foreground colors, background colors, and dynamic color functions.
+
+--]]
 
 type StyleFunction = (value: any) -> string
 
@@ -192,13 +200,17 @@ end
 
 local function environmentSupported()
     -- checks if running in a roblox environment
-    local success1, RunService = pcall(function() return game:GetService("RunService") end)
+    local success1, RunService = pcall(function()
+        return game:GetService("RunService")
+    end)
     if not success1 then
         return true
     end
 
     -- checks if running in roblox-cli
-    local success2, processServiceExists = pcall(function() return game:GetService("ProcessService") end)
+    local success2, processServiceExists = pcall(function()
+        return game:GetService("ProcessService")
+    end)
     if success2 and processServiceExists then
         return true
     end
@@ -232,8 +244,12 @@ function createStyler(open, close)
     }
 
     setmetatable(styler, {
-        __call = function(self, str) return applyStyle(self, str) end,
-        __concat = function(self, other) return compositeStyler(self, other) end,
+        __call = function(self, str)
+            return applyStyle(self, str)
+        end,
+        __concat = function(self, other)
+            return compositeStyler(self, other)
+        end,
     })
 
     return styler
@@ -270,7 +286,9 @@ function applyStyle(self, str)
     return self.open .. tostring(str) .. self.close
 end
 
-local function noStyle() return createStyler("", "") end
+local function noStyle()
+    return createStyler("", "")
+end
 
 local close = string.format(ansi16, ESC, 39)
 local bgClose = string.format(ansi16, ESC, 49)

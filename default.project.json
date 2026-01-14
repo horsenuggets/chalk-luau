@@ -1,6 +1,12 @@
 {
     "name": "chalk-luau",
     "tree": {
-        "$path": "Source/Chalk"
+        "$path": "Source/Chalk",
+        "DevPackages": {
+            "$path": "DevPackages"
+        },
+        "Packages": {
+            "$path": "Packages"
+        }
     }
 }
