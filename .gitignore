@@ -1,7 +1,6 @@
 .DS_Store
 .env
 .local
-.luaurc
 .vscode
 *.bak
 *.gen.*
@@ -11,6 +10,7 @@
 *.rbxm
 *.rbxmx
 Build
+DevPackages
 Packages
 sourcemap.json
 Tools

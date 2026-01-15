@@ -1,5 +1,13 @@
 --!nocheck
--- Forked from https://github.com/Roblox/chalk-lua.
+--[[
+
+Chalk
+
+A terminal string styling library for Luau, forked from
+https://github.com/Roblox/chalk-lua. Provides ANSI color codes for text
+modifiers, foreground colors, background colors, and dynamic color functions.
+
+--]]
 
 type StyleFunction = (value: any) -> string
 
@@ -192,13 +200,17 @@ end
 
 local function environmentSupported()
     -- checks if running in a roblox environment
-    local success1, RunService = pcall(function() return game:GetService("RunService") end)
+    local success1, RunService = pcall(function()
+        return game:GetService("RunService")
+    end)
     if not success1 then
         return true
     end
 
     -- checks if running in roblox-cli
-    local success2, processServiceExists = pcall(function() return game:GetService("ProcessService") end)
+    local success2, processServiceExists = pcall(function()
+        return game:GetService("ProcessService")
+    end)
     if success2 and processServiceExists then
         return true
     end
@@ -232,8 +244,12 @@ function createStyler(open, close)
     }
 
     setmetatable(styler, {
-        __call = function(self, str) return applyStyle(self, str) end,
-        __concat = function(self, other) return compositeStyler(self, other) end,
+        __call = function(self, str)
+            return applyStyle(self, str)
+        end,
+        __concat = function(self, other)
+            return compositeStyler(self, other)
+        end,
     })
 
     return styler
@@ -251,12 +267,17 @@ function applyStyle(self, str)
 
     local openAll, closeAll = styler.open, styler.close
     if string.match(str, "\u{001B}") then
-        -- ROBLOX deviation START: no parent styles support yet
         -- Replace any instances already present with a re-opening code
         -- otherwise only the part of the string until said closing code
         -- will be colored, and the rest will simply be 'plain'.
         str = stringReplaceAll(str, styler.close, styler.open)
-        -- ROBLOX deviation END
+
+        -- Also handle full reset codes (\x1b[0m) - when a nested style uses reset,
+        -- we need to re-apply the outer style after the reset's close code.
+        local fullReset = string.format(ansi16, ESC, 0)
+        if styler.close ~= fullReset then
+            str = stringReplaceAll(str, fullReset, styler.open)
+        end
     end
 
     -- We can move both next actions out of loop, because remaining actions in loop won't have
@@ -270,7 +291,9 @@ function applyStyle(self, str)
     return self.open .. tostring(str) .. self.close
 end
 
-local function noStyle() return createStyler("", "") end
+local function noStyle()
+    return createStyler("", "")
+end
 
 local close = string.format(ansi16, ESC, 39)
 local bgClose = string.format(ansi16, ESC, 49)
