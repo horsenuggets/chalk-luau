@@ -1,1 +1,1 @@
-return require("./Source/Chalk")
+return require("@self/Source/Chalk")
