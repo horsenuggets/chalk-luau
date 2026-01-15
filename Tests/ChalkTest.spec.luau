@@ -35,8 +35,8 @@ return function()
             local result = Chalk.dim(`Entry point is {Chalk.reset(ENTRY_POINT)}.`)
             -- The "." at the end should still be dim, not reset
             -- dim open: \27[2m, dim close: \27[22m, reset: \27[0m
-            -- After each reset code, dim is re-applied
-            local expected = "\27[2mEntry point is \27[0m\27[2mmain.luau\27[0m\27[2m.\27[22m"
+            -- Reset makes "main.luau" appear in normal/default style, then dim resumes
+            local expected = "\27[2mEntry point is \27[0mmain.luau\27[2m.\27[22m"
             expect(result).to.equal(expected)
         end)
 

@@ -80,7 +80,25 @@ export type Chalk = StyleFunction & {
     bgAnsi256: (ansi: number) -> StyleFunction,
 }
 
+-- Plain string replacement (actually replaces substring with replacer)
+local function stringReplace(string_, substring, replacer)
+    local result = {}
+    local start = 1
+    while true do
+        local pos = string.find(string_, substring, start, true)
+        if not pos then
+            table.insert(result, string.sub(string_, start))
+            break
+        end
+        table.insert(result, string.sub(string_, start, pos - 1))
+        table.insert(result, replacer)
+        start = pos + #substring
+    end
+    return table.concat(result)
+end
+
 -- ROBLOX NOTE: inline stringReplaceAll to keep ChalkLua as one file
+-- NOTE: This function KEEPS substring and APPENDS replacer after it (for style chaining)
 local function stringReplaceAll(string_, substring, replacer)
     local index = string.find(string_, substring, 1, true)
     if index == nil then
@@ -180,6 +198,10 @@ local ESC = 27
 local ANSI_SET_FOREGROUND = 38
 local ANSI_SET_BACKGROUND = 48
 
+-- Marker to indicate where outer styles should resume after reset text.
+-- Uses an invalid ANSI code that terminals will ignore.
+local RESUME_MARKER = string.format(ansi16, ESC, 999)
+
 local styles = {}
 
 for groupName, group in pairs(ansiStyles) do
@@ -272,12 +294,10 @@ function applyStyle(self, str)
         -- will be colored, and the rest will simply be 'plain'.
         str = stringReplaceAll(str, styler.close, styler.open)
 
-        -- Also handle full reset codes (\x1b[0m) - when a nested style uses reset,
-        -- we need to re-apply the outer style after the reset's close code.
-        local fullReset = string.format(ansi16, ESC, 0)
-        if styler.close ~= fullReset then
-            str = stringReplaceAll(str, fullReset, styler.open)
-        end
+        -- Handle RESUME_MARKER from nested Chalk.reset() calls.
+        -- Replace the marker with this style's open code to resume styling
+        -- after the reset text.
+        str = stringReplace(str, RESUME_MARKER, styler.open)
     end
 
     -- We can move both next actions out of loop, because remaining actions in loop won't have
@@ -303,7 +323,8 @@ for styleName, style in pairs(styles) do
     Chalk[styleName] = createStyler(style.open, style.close)
 end
 
-Chalk["reset"] = createStyler(reset, reset)
+-- reset uses RESUME_MARKER as close so outer styles know where to resume
+Chalk["reset"] = createStyler(reset, RESUME_MARKER)
 
 local function rgbToAnsi256(red, green, blue)
     if red == green and green == blue then
