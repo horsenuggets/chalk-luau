@@ -29,5 +29,22 @@ return function()
             local result = Chalk.red("")
             expect(result).to.equal("")
         end)
+
+        it("should restore outer style after nested reset", function()
+            local ENTRY_POINT = "main.luau"
+            local result = Chalk.dim(`Entry point is {Chalk.reset(ENTRY_POINT)}.`)
+            -- The "." at the end should still be dim, not reset
+            -- dim open: \27[2m, dim close: \27[22m, reset: \27[0m
+            -- After each reset code, dim is re-applied
+            local expected = "\27[2mEntry point is \27[0m\27[2mmain.luau\27[0m\27[2m.\27[22m"
+            expect(result).to.equal(expected)
+        end)
+
+        it("should handle nested styles without reset", function()
+            local result = Chalk.dim(`Hello {Chalk.bold("world")}!`)
+            -- bold close is \27[22m which is same as dim close, so dim re-opens after it
+            local expected = "\27[2mHello \27[1mworld\27[22m\27[2m!\27[22m"
+            expect(result).to.equal(expected)
+        end)
     end)
 end

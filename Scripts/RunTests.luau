@@ -1,4 +1,4 @@
-#!/usr/bin/env lune
+#!/usr/bin/env -S lune run
 
 --[[
 

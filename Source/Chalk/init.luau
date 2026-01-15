@@ -267,12 +267,17 @@ function applyStyle(self, str)
 
     local openAll, closeAll = styler.open, styler.close
     if string.match(str, "\u{001B}") then
-        -- ROBLOX deviation START: no parent styles support yet
         -- Replace any instances already present with a re-opening code
         -- otherwise only the part of the string until said closing code
         -- will be colored, and the rest will simply be 'plain'.
         str = stringReplaceAll(str, styler.close, styler.open)
-        -- ROBLOX deviation END
+
+        -- Also handle full reset codes (\x1b[0m) - when a nested style uses reset,
+        -- we need to re-apply the outer style after the reset's close code.
+        local fullReset = string.format(ansi16, ESC, 0)
+        if styler.close ~= fullReset then
+            str = stringReplaceAll(str, fullReset, styler.open)
+        end
     end
 
     -- We can move both next actions out of loop, because remaining actions in loop won't have
