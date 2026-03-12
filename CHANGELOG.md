@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.0.2
+- Synced configuration with luau-package-template
+- Updated lune to 0.10.4-horse.6.0
+- Cleaned up project files to match template structure
+- Updated submodules and tool versions
+- Added yml/yaml 2-space indent rule to editorconfig
+- Ignored DevPackages and Packages in static analysis
+- Fixed CI issues
+- Fixed nested reset style not restoring outer styles
+
 ## 0.0.1
 - Initial release
 - Added terminal string styling with ANSI color codes
