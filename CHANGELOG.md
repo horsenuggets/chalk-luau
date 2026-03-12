@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.3
+- Removed Packages and DevPackages entries from default.project.json to fix sourcemap generation in consuming projects
+
 ## 0.0.2
 - Synced configuration with luau-package-template
 - Updated lune to 0.10.4-horse.6.0
