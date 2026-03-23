@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.0
+- Superseded broken 0.1.0 registry entry that included DevPackages/Packages in default.project.json
+
 ## 0.0.3
 - Removed Packages and DevPackages entries from default.project.json to fix sourcemap generation in consuming projects
 
