@@ -54,8 +54,20 @@ jobs:
       - name: Install dependencies
         run: wally install
 
-      - name: Setup Lune typedefs
-        run: lune setup --no-update-luaurc
-
       - name: Run static analysis
-        run: luau-lsp analyze --ignore "Submodules/**" --ignore "DevPackages/**" --ignore "Packages/**" --platform standard .
+        run: lune run ./Submodules/luau-cicd/Scripts/RunStaticAnalysis.luau lune
+
+  version-match:
+    name: Check version match
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Rokit
+        uses: CompeyDev/setup-rokit@v0.1.2
+
+      - name: Check version match
+        run: lune run ./Submodules/luau-cicd/Scripts/CheckVersionMatch.luau
