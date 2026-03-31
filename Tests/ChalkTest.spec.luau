@@ -1,6 +1,6 @@
 --[[
 
-ChalkTest
+ChalkTest.spec
 
 Tests for the Chalk terminal styling library.
 
