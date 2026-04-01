@@ -1,19 +1,33 @@
+# Build artifacts
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+/Build
+
+# Dependencies
+/DevPackages
+/Packages
+/ServerPackages
+
+# Editor and environment
 .claude
 .DS_Store
 .env
 .local
 .mcp.json
 .vscode
+
+# Generated files
 *.bak
 *.gen.*
 *.lock
-*.rbxl
-*.rbxlx
-*.rbxm
-*.rbxmx
+!.assetfile.lock
+/*sourcemap.json
+
+# Legacy
 aftman.toml
-Build
-DevPackages
-Packages
-sourcemap.json
-Tools
+/Tools
+
+# Project
+/TODO.md
