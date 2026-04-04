@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+- Include .luaurc in Wally package
+- Standardize test runner with code coverage
+
 ## 1.0.0
 - Superseded broken 0.1.0 registry entry that included DevPackages/Packages in default.project.json
 
