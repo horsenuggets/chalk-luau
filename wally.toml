@@ -1,13 +1,12 @@
 [package]
 name = "horsenuggets/chalk-luau"
 description = "A terminal string styling library for Luau."
-version = "1.0.1"
+version = "1.0.2"
 license = "MIT"
 realm = "shared"
 registry = "https://github.com/UpliftGames/wally-index"
 repository = "https://github.com/horsenuggets/chalk-luau"
 include = [
-    ".luaurc",
     "default.project.json",
     "init.luau",
     "LICENSE",
@@ -21,4 +20,4 @@ exclude = ["**"]
 [dependencies]
 
 [dev-dependencies]
-Testable = "horsenuggets/testable@1.1.2"
+Testable = "horsenuggets/testable@1.1.3"

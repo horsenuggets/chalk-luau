@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+- Remove .luaurc from Wally package to fix transitive dependency resolution
+- Bump dependencies and update submodules
+
 ## 1.0.1
 - Include .luaurc in Wally package
 - Standardize test runner with code coverage
