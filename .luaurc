@@ -1,7 +1,7 @@
 {
     "aliases": {
         "devpackages": "./DevPackages/",
-        "lune": "~/.lune/.typedefs/0.10.4-horse.10.0/",
+        "lune": "~/.lune/.typedefs/0.10.4-horse.14.5/",
         "packages": "./Packages/",
         "tests": "./Tests/"
     },
@@ -10,37 +10,13 @@
         "afterEach",
         "beforeAll",
         "beforeEach",
-        "DebuggerManager",
-        "delay",
         "describe",
-        "elapsedTime",
-        "Enum",
         "expect",
         "fail",
         "fdescribe",
         "fit",
-        "game",
-        "getfenv",
         "it",
-        "plugin",
-        "PluginManager",
-        "printidentity",
-        "script",
-        "settings",
-        "shared",
-        "spawn",
-        "stats",
-        "task",
-        "tick",
-        "time",
-        "typeof",
-        "UserSettings",
-        "version",
-        "wait",
-        "warn",
-        "workspace",
         "xdescribe",
-        "xit",
-        "ypcall"
+        "xit"
     ]
 }
