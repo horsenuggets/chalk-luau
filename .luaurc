@@ -3,6 +3,7 @@
         "devpackages": "./DevPackages/",
         "lune": "~/.lune/.typedefs/0.11.1-horse.16.1/",
         "packages": "./Packages/",
+        "submodules": "./Submodules/",
         "tests": "./Tests/"
     },
     "globals": [
@@ -16,6 +17,7 @@
         "fdescribe",
         "fit",
         "it",
+        "project",
         "xdescribe",
         "xit"
     ]
