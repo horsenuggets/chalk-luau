@@ -200,6 +200,7 @@ const function compositeStyler(style, otherStyle)
 end
 
 const function environmentSupported()
+    const game = getfenv().game
     -- checks if running in a roblox environment
     const success1, RunService = pcall(function()
         return game:GetService("RunService")

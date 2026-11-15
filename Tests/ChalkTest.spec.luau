@@ -10,6 +10,11 @@ return function()
     describe("Chalk", function()
         const Chalk = require("../Source/Chalk")
 
+        it("should enable styling without a Roblox game global", function()
+            expect(getfenv().game).to.equal(nil)
+            expect(Chalk.level).to.equal(2)
+        end)
+
         it("should style text with red foreground color", function()
             const redText = Chalk.red("This is red text")
             expect(redText).to.equal("\27[31mThis is red text\27[39m")
