@@ -6,6 +6,9 @@ Tests for the Chalk terminal styling library.
 
 --]]
 
+const Testable = require("@devpackages/Testable")
+const describe, expect, it = Testable.describe, Testable.expect, Testable.it
+
 return function()
     describe("Chalk", function()
         const Chalk = require("../Source/Chalk")
