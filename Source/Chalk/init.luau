@@ -78,7 +78,7 @@ export type Chalk = StyleFunction & {
     ansi: (ansi: number) -> StyleFunction,
     bgAnsi: (ansi: number) -> StyleFunction,
     ansi256: (ansi: number) -> StyleFunction,
-    bgAnsi256: (ansi: number) -> StyleFunction,
+    bgAnsi256: (ansi: number) -> StyleFunction
 }
 
 -- ROBLOX NOTE: inline stringReplaceAll to keep ChalkLua as one file
@@ -125,7 +125,7 @@ const ansiStyles = {
         overline = { 53, 55 },
         inverse = { 7, 27 },
         hidden = { 8, 28 },
-        strikethrough = { 9, 29 },
+        strikethrough = { 9, 29 }
     },
 
     color = {
@@ -148,7 +148,7 @@ const ansiStyles = {
         blueBright = { 94, 39 },
         magentaBright = { 95, 39 },
         cyanBright = { 96, 39 },
-        whiteBright = { 97, 39 },
+        whiteBright = { 97, 39 }
     },
 
     bgColor = {
@@ -171,8 +171,8 @@ const ansiStyles = {
         bgBlueBright = { 104, 49 },
         bgMagentaBright = { 105, 49 },
         bgCyanBright = { 106, 49 },
-        bgWhiteBright = { 107, 49 },
-    },
+        bgWhiteBright = { 107, 49 }
+    }
 }
 
 const ansi16 = "%c[%dm"
@@ -187,7 +187,7 @@ for groupName, group in pairs(ansiStyles) do
     for styleName, style in pairs(group) do
         styles[styleName] = {
             open = string.format(ansi16, ESC, style[1]),
-            close = string.format(ansi16, ESC, style[2]),
+            close = string.format(ansi16, ESC, style[2])
         }
     end
 end
@@ -236,13 +236,13 @@ setmetatable(Chalk, {
             return ""
         end
         return tostring(str)
-    end,
+    end
 })
 
 function createStyler(open, close)
     const styler = {
         open = open,
-        close = close,
+        close = close
     }
 
     setmetatable(styler, {
@@ -251,7 +251,7 @@ function createStyler(open, close)
         end,
         __concat = function(self, other)
             return compositeStyler(self, other)
-        end,
+        end
     })
 
     return styler
